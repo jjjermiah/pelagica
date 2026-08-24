@@ -6,5 +6,6 @@
     "discover_requested": "Requested",
     "discover_request": "Request",
     "discover_requesting": "Requesting...",
-    "discover_request_failed": "Failed to submit request"
+    "discover_request_failed": "Failed to submit request",
+    "discover_rating_tmdb": "TMDB rating: {{rating}}"
 }

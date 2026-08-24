@@ -9,6 +9,12 @@ export interface DiscoverItem {
     year: string | null;
     posterPath: string | null;
     status: DiscoverItemStatus;
+    /**
+     * TMDB's own 0-10 vote average, when available. `null` when the title
+     * has no votes yet (backend omits the field entirely; the client fills
+     * in `null` via the parsed JSON's missing key).
+     */
+    tmdbRating: number | null;
 }
 
 export interface DiscoverRequestPayload {

@@ -107,6 +107,17 @@ const DiscoverPoster = ({ item, requested, onRequested }: DiscoverPosterProps) =
                 {item.title}
             </p>
             {item.year && <span className="text-xs text-muted-foreground mt-1">{item.year}</span>}
+            {item.tmdbRating != null && (
+                <div className="flex items-center gap-1 mt-1">
+                    <span
+                        className="inline-flex items-center gap-1 rounded-sm bg-[#0d253f] px-1.5 py-0.5 text-[10px] font-bold leading-none"
+                        title={t('discover_rating_tmdb', { rating: item.tmdbRating.toFixed(1) })}
+                    >
+                        <span className="text-[#01b4e4]">TMDB</span>
+                        <span className="text-white">{item.tmdbRating.toFixed(1)}</span>
+                    </span>
+                </div>
+            )}
         </div>
     );
 };
