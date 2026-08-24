@@ -122,7 +122,14 @@ const itemKey = (item: DiscoverItem) => `${item.mediaType}-${item.tmdbId}`;
  */
 const DiscoverSection = ({ provider, region }: DiscoverSectionProps) => {
     const { t } = useTranslation('discover');
-    const { movies, shows, isLoading, notConfigured } = useDiscoverTrending({ provider, region });
+    const { movies: allMovies, shows: allShows, isLoading, notConfigured } = useDiscoverTrending({
+        provider,
+        region,
+    });
+    // Already-in-library titles add no value in a discovery row — filter them out
+    // rather than badging them, so every card shown is actually requestable.
+    const movies = allMovies.filter((item) => item.status !== 'available');
+    const shows = allShows.filter((item) => item.status !== 'available');
     const [requestedKeys, setRequestedKeys] = useState<Set<string>>(new Set());
 
     const markRequested = (item: DiscoverItem) => {
