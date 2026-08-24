@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
+    Apple,
     ChartLine,
     Check,
     ChevronDown,
@@ -9,6 +10,7 @@ import {
     ChevronsUpDown,
     Copy,
     DotIcon,
+    Drama,
     ExternalLink,
     Fingerprint,
     Globe,
@@ -19,6 +21,7 @@ import {
     LogIn,
     LogOut,
     Minus,
+    MonitorPlay,
     Moon,
     Music,
     Search,
@@ -77,8 +80,11 @@ import {
 import { Label } from '@/components/ui/label';
 import { useCurrentUser } from '@pelagica/core';
 import { useAnimeBoxSet } from '@pelagica/core';
+import { useAppleTVBoxSet } from '@pelagica/core';
 import { useDCUniverseBoxSet } from '@pelagica/core';
+import { useHBOMaxBoxSet } from '@pelagica/core';
 import { useMarvelBoxSet } from '@pelagica/core';
+import { useNetflixBoxSet } from '@pelagica/core';
 import { useUserViews } from '@pelagica/core';
 import { useConfig } from '@pelagica/core';
 import { useTheme } from '@/components/theme-provider';
@@ -669,6 +675,9 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const { data: marvelBoxSetId } = useMarvelBoxSet();
     const { data: animeBoxSetId } = useAnimeBoxSet();
     const { data: dcUniverseBoxSetId } = useDCUniverseBoxSet();
+    const { data: appleTVBoxSetId } = useAppleTVBoxSet();
+    const { data: hboMaxBoxSetId } = useHBOMaxBoxSet();
+    const { data: netflixBoxSetId } = useNetflixBoxSet();
     const { theme } = useTheme();
     const effectiveTheme = getEffectiveTheme(theme);
     const [scrolled, setScrolled] = useState(false);
@@ -710,6 +719,9 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const hasMarvelCollection = !!marvelBoxSetId;
     const hasAnimeCollection = !!animeBoxSetId;
     const hasDCUniverseCollection = !!dcUniverseBoxSetId;
+    const hasAppleTVCollection = !!appleTVBoxSetId;
+    const hasHBOMaxCollection = !!hboMaxBoxSetId;
+    const hasNetflixCollection = !!netflixBoxSetId;
 
     const validLinks = config?.links?.filter((l) => l.url && l.text) ?? [];
 
@@ -900,6 +912,33 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             </Button>
                         )}
 
+                        {hasAppleTVCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/apple-tv">
+                                    <Apple className="h-4 w-4" />
+                                    {t('appleTV')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasHBOMaxCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/hbo-max">
+                                    <Drama className="h-4 w-4" />
+                                    {t('hboMax')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasNetflixCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/netflix">
+                                    <MonitorPlay className="h-4 w-4" />
+                                    {t('netflix')}
+                                </Link>
+                            </Button>
+                        )}
+
                         <Button asChild variant="ghost" size="sm">
                             <Link to="/search">
                                 <Search className="h-4 w-4" />
@@ -989,6 +1028,30 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/dc-universe">
                                     <Star className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasAppleTVCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/apple-tv">
+                                    <Apple className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasHBOMaxCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/hbo-max">
+                                    <Drama className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasNetflixCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/netflix">
+                                    <MonitorPlay className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}

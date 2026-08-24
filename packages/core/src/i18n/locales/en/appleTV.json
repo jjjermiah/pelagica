@@ -1,0 +1,7 @@
+{
+    "title": "Apple TV+",
+    "movies": "Movies",
+    "shows": "Shows",
+    "no_collection_title": "No Apple TV+ collection found",
+    "no_collection_description": "This server doesn't have a collection named \"Apple TV+\". Create a BoxSet/Collection named \"Apple TV+\" in Jellyfin to populate this page."
+}

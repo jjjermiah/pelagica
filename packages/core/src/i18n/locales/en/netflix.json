@@ -1,0 +1,7 @@
+{
+    "title": "Netflix",
+    "movies": "Movies",
+    "shows": "Shows",
+    "no_collection_title": "No Netflix collection found",
+    "no_collection_description": "This server doesn't have a collection named \"Netflix\". Create a BoxSet/Collection named \"Netflix\" in Jellyfin to populate this page."
+}
