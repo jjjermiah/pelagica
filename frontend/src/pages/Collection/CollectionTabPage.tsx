@@ -63,6 +63,11 @@ export interface CollectionTabPageProps {
     emptyIcon: ReactNode;
     /** Which tab is active on first render. Defaults to 'movies'. */
     defaultTab?: CollectionTab;
+    /**
+     * Optional extra content rendered below the Movies/Shows collection UI,
+     * still inside this page's `<Page>` wrapper (e.g. a DiscoverSection).
+     */
+    belowContent?: ReactNode;
 }
 
 /**
@@ -82,6 +87,7 @@ const CollectionTabPage = ({
     isLoadingBoxSet,
     emptyIcon,
     defaultTab = 'movies',
+    belowContent,
 }: CollectionTabPageProps) => {
     const { t } = useTranslation(i18nNamespace);
     const [activeTab, setActiveTab] = useState<CollectionTab>(defaultTab);
@@ -168,6 +174,8 @@ const CollectionTabPage = ({
                     </TabsContent>
                 </Tabs>
             )}
+
+            {belowContent}
         </Page>
     );
 };
