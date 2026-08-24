@@ -1,4 +1,4 @@
-import { Drama } from 'lucide-react';
+import { HBOMaxLogo } from '@/components/logos/BrandLogos';
 import { useHBOMaxBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const HBOMaxPage = () => {
             i18nNamespace="hboMax"
             boxSetId={hboMaxBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<Drama />}
+            emptyIcon={<HBOMaxLogo className="h-6 w-6" />}
             defaultTab="shows"
         />
     );

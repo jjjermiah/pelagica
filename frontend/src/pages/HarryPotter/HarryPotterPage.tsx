@@ -1,4 +1,4 @@
-import { Wand2 } from 'lucide-react';
+import { HarryPotterLogo } from '@/components/logos/BrandLogos';
 import { useHarryPotterBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const HarryPotterPage = () => {
             i18nNamespace="harryPotter"
             boxSetId={harryPotterBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<Wand2 />}
+            emptyIcon={<HarryPotterLogo className="h-6 w-6" />}
         />
     );
 };

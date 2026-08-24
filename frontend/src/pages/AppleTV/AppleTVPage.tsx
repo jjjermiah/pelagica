@@ -1,4 +1,4 @@
-import { Apple } from 'lucide-react';
+import { AppleTVLogo } from '@/components/logos/BrandLogos';
 import { useAppleTVBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const AppleTVPage = () => {
             i18nNamespace="appleTV"
             boxSetId={appleTVBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<Apple />}
+            emptyIcon={<AppleTVLogo className="h-6 w-6" />}
             defaultTab="shows"
         />
     );

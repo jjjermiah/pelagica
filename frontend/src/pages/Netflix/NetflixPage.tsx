@@ -1,4 +1,4 @@
-import { MonitorPlay } from 'lucide-react';
+import { NetflixLogo } from '@/components/logos/BrandLogos';
 import { useNetflixBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const NetflixPage = () => {
             i18nNamespace="netflix"
             boxSetId={netflixBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<MonitorPlay />}
+            emptyIcon={<NetflixLogo className="h-6 w-6" />}
             defaultTab="shows"
         />
     );

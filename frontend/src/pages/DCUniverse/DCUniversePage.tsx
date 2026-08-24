@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react';
+import { DCLogo } from '@/components/logos/BrandLogos';
 import { useDCUniverseBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const DCUniversePage = () => {
             i18nNamespace="dcUniverse"
             boxSetId={dcUniverseBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<Star />}
+            emptyIcon={<DCLogo className="h-6 w-6" />}
         />
     );
 };

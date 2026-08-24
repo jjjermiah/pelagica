@@ -1,7 +1,14 @@
+import {
+    AppleTVLogo,
+    DCLogo,
+    HBOMaxLogo,
+    HarryPotterLogo,
+    MarvelLogo,
+    NetflixLogo,
+} from '@/components/logos/BrandLogos';
 import { useState, useRef, useEffect, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
-    Apple,
     ChartLine,
     Check,
     ChevronDown,
@@ -10,7 +17,6 @@ import {
     ChevronsUpDown,
     Copy,
     DotIcon,
-    Drama,
     ExternalLink,
     Fingerprint,
     Globe,
@@ -21,21 +27,17 @@ import {
     LogIn,
     LogOut,
     Minus,
-    MonitorPlay,
     Moon,
     Music,
     Search,
     Settings,
     Settings2,
-    Shield,
     Square,
-    Star,
     Sun,
     Swords,
     Telescope,
     TriangleAlert,
     Tv,
-    Wand2,
     X,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -892,7 +894,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasMarvelCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/marvel">
-                                    <Shield className="h-4 w-4" />
+                                    <MarvelLogo className="h-4 w-4" />
                                     {t('marvel')}
                                 </Link>
                             </Button>
@@ -910,7 +912,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasDCUniverseCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/dc-universe">
-                                    <Star className="h-4 w-4" />
+                                    <DCLogo className="h-4 w-4" />
                                     {t('dcUniverse')}
                                 </Link>
                             </Button>
@@ -919,7 +921,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasHarryPotterCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/harry-potter">
-                                    <Wand2 className="h-4 w-4" />
+                                    <HarryPotterLogo className="h-4 w-4" />
                                     {t('harryPotter')}
                                 </Link>
                             </Button>
@@ -928,7 +930,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasAppleTVCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/apple-tv">
-                                    <Apple className="h-4 w-4" />
+                                    <AppleTVLogo className="h-4 w-4" />
                                     {t('appleTV')}
                                 </Link>
                             </Button>
@@ -937,7 +939,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasHBOMaxCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/hbo-max">
-                                    <Drama className="h-4 w-4" />
+                                    <HBOMaxLogo className="h-4 w-4" />
                                     {t('hboMax')}
                                 </Link>
                             </Button>
@@ -946,7 +948,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasNetflixCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/netflix">
-                                    <MonitorPlay className="h-4 w-4" />
+                                    <NetflixLogo className="h-4 w-4" />
                                     {t('netflix')}
                                 </Link>
                             </Button>
@@ -1024,7 +1026,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasMarvelCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/marvel">
-                                    <Shield className="h-4 w-4" />
+                                    <MarvelLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
@@ -1040,7 +1042,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasDCUniverseCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/dc-universe">
-                                    <Star className="h-4 w-4" />
+                                    <DCLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
@@ -1048,7 +1050,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasHarryPotterCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/harry-potter">
-                                    <Wand2 className="h-4 w-4" />
+                                    <HarryPotterLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
@@ -1056,7 +1058,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasAppleTVCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/apple-tv">
-                                    <Apple className="h-4 w-4" />
+                                    <AppleTVLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
@@ -1064,7 +1066,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasHBOMaxCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/hbo-max">
-                                    <Drama className="h-4 w-4" />
+                                    <HBOMaxLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
@@ -1072,7 +1074,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         {hasNetflixCollection && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/netflix">
-                                    <MonitorPlay className="h-4 w-4" />
+                                    <NetflixLogo className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
