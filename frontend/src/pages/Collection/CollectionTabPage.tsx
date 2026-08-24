@@ -78,7 +78,9 @@ const CollectionTabPage = ({
         state.params
     );
     const showsResult = useSectionItems(
-        boxSetId && activeTab === 'shows' ? { libraryId: boxSetId, types: SERIES_TYPES } : undefined,
+        boxSetId && activeTab === 'shows'
+            ? { libraryId: boxSetId, types: SERIES_TYPES }
+            : undefined,
         state.params
     );
 
