@@ -7,8 +7,10 @@ import {
     getTitleLineText,
 } from '../../../../packages/core/src/utils/continueWatchingLines';
 import { buildPlayerUrl } from '@/utils/playerUrl';
-import { Dot, ImageOff, Play } from 'lucide-react';
-import { getPrimaryImageUrl, getThumbUrl, getBackdropUrl } from '@pelagica/core';
+import { Button } from '@/components/ui/button';
+import { Check, Dot, ImageOff, Play } from 'lucide-react';
+import { getUserId, getPrimaryImageUrl, getThumbUrl, getBackdropUrl, useMarkWatched } from '@pelagica/core';
+import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import SectionScroller from '@/components/SectionScroller';
 import type { BaseItemDto } from '@jellyfin/sdk/lib/generated-client/models';
@@ -35,6 +37,17 @@ export function BaseContinueRow({
     const { t } = useTranslation('home');
     const navigate = useNavigate();
     const location = useLocation();
+    const markWatched = useMarkWatched();
+
+    const handleMarkWatched = (item: BaseItemDto) => {
+        markWatched.mutate(
+            { item, userId: getUserId() ?? undefined },
+            {
+                onSuccess: () => toast.success(t('mark_watched_success')),
+                onError: () => toast.error(t('mark_watched_failed')),
+            }
+        );
+    };
 
     const [imageStates, setImageStates] = useState<Record<string, ImageState>>({});
 
@@ -186,6 +199,21 @@ export function BaseContinueRow({
                                                           <Play className="w-6 h-6 text-white fill-white" />
                                                       </div>
                                                   </div>
+                                                  <Button
+                                                      size="icon-sm"
+                                                      variant="secondary"
+                                                      disabled={markWatched.isPending}
+                                                      onClick={(e) => {
+                                                          e.preventDefault();
+                                                          e.stopPropagation();
+                                                          handleMarkWatched(item);
+                                                      }}
+                                                      aria-label={t('mark_watched')}
+                                                      title={t('mark_watched')}
+                                                      className="absolute top-1.5 right-1.5 z-30 shadow-sm opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
+                                                  >
+                                                      <Check />
+                                                  </Button>
                                                   <div className="absolute inset-0 rounded-md pointer-events-none poster-card-outline z-20" />
                                               </div>
                                               <p className="mt-2 text-sm line-clamp-1 text-ellipsis break-all">
