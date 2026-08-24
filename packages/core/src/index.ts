@@ -64,6 +64,7 @@ export * from './hooks/useLiveTvChannels';
 export * from './hooks/useLiveTvPrograms';
 export * from './hooks/useLocalTrailers';
 export * from './hooks/useLogin';
+export * from './hooks/useMarvelBoxSet';
 export * from './hooks/useMediaBarItems';
 export * from './hooks/useMediaSegments';
 export * from './hooks/useMusicItems';

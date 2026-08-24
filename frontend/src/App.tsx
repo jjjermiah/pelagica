@@ -35,6 +35,7 @@ const StudioPage = lazy(() => import('./pages/Studio/StudioPage.tsx'));
 const StudiosPage = lazy(() => import('./pages/Studios/StudiosPage.tsx'));
 const ItemsSectionPage = lazy(() => import('./pages/Items/ItemsSectionPage.tsx'));
 const LivetvPage = lazy(() => import('./pages/Live/LiveTvPage.tsx'));
+const MarvelPage = lazy(() => import('./pages/Marvel/MarvelPage.tsx'));
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ export default function App() {
                                             />
                                             <Route path="/search" element={<SearchPage />} />
                                             <Route path="/live" element={<LivetvPage />} />
+                                            <Route path="/marvel" element={<MarvelPage />} />
                                             <Route
                                                 path="/photo/:itemId"
                                                 element={<PhotoViewerPage />}
