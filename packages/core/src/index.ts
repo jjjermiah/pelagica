@@ -66,6 +66,7 @@ export * from './hooks/useEpisodes';
 export * from './hooks/useFavorite';
 export * from './hooks/useHBOMaxBoxSet';
 export * from './hooks/useHarryPotterBoxSet';
+export * from './hooks/useHiddenDiscoverItems';
 export * from './hooks/useItem';
 export * from './hooks/useLibraryItems';
 export * from './hooks/useLike';

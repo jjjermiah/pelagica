@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { Check, Clock, Download, ImageOff } from 'lucide-react';
+import { Check, Clock, Download, EyeOff, ImageOff } from 'lucide-react';
 import SectionScroller from '@/components/SectionScroller';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useDiscoverTrending, useRequestDiscoverItem, type DiscoverItem } from '@pelagica/core';
+import {
+    useDiscoverTrending,
+    useHiddenDiscoverItems,
+    useRequestDiscoverItem,
+    type DiscoverItem,
+} from '@pelagica/core';
 import { getDiscoverPosterUrl } from '@/utils/discoverUrls';
 
 export interface DiscoverSectionProps {
@@ -31,9 +36,10 @@ interface DiscoverPosterProps {
     item: DiscoverItem;
     requested: boolean;
     onRequested: (item: DiscoverItem) => void;
+    onHide: (item: DiscoverItem) => void;
 }
 
-const DiscoverPoster = ({ item, requested, onRequested }: DiscoverPosterProps) => {
+const DiscoverPoster = ({ item, requested, onRequested, onHide }: DiscoverPosterProps) => {
     const { t } = useTranslation('discover');
     const [posterFailed, setPosterFailed] = useState(false);
     const requestMutation = useRequestDiscoverItem();
@@ -49,6 +55,11 @@ const DiscoverPoster = ({ item, requested, onRequested }: DiscoverPosterProps) =
                 onError: () => toast.error(t('discover_request_failed')),
             }
         );
+    };
+
+    const handleHide = () => {
+        onHide(item);
+        toast.success(t('discover_hidden'));
     };
 
     return (
@@ -69,6 +80,17 @@ const DiscoverPoster = ({ item, requested, onRequested }: DiscoverPosterProps) =
                         <ImageOff className="text-muted-foreground" size={32} />
                     </div>
                 )}
+
+                <Button
+                    size="icon-sm"
+                    variant="secondary"
+                    onClick={handleHide}
+                    aria-label={t('discover_hide')}
+                    title={t('discover_hide')}
+                    className="absolute top-1.5 right-1.5 shadow-sm opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
+                >
+                    <EyeOff />
+                </Button>
 
                 {effectiveStatus === 'available' && (
                     <Badge variant="default" className="absolute top-1.5 left-1.5 shadow-sm">
@@ -133,14 +155,26 @@ const itemKey = (item: DiscoverItem) => `${item.mediaType}-${item.tmdbId}`;
  */
 const DiscoverSection = ({ provider, region }: DiscoverSectionProps) => {
     const { t } = useTranslation('discover');
-    const { movies: allMovies, shows: allShows, isLoading, notConfigured } = useDiscoverTrending({
+    const {
+        movies: allMovies,
+        shows: allShows,
+        isLoading,
+        notConfigured,
+    } = useDiscoverTrending({
         provider,
         region,
     });
+    const { hiddenKeys, hideItem } = useHiddenDiscoverItems();
     // Already-in-library titles add no value in a discovery row — filter them out
     // rather than badging them, so every card shown is actually requestable.
-    const movies = allMovies.filter((item) => item.status !== 'available');
-    const shows = allShows.filter((item) => item.status !== 'available');
+    // Items the user chose to hide are excluded regardless of which network
+    // page they'd otherwise appear on (hidden state isn't per-provider).
+    const movies = allMovies.filter(
+        (item) => item.status !== 'available' && !hiddenKeys.has(itemKey(item))
+    );
+    const shows = allShows.filter(
+        (item) => item.status !== 'available' && !hiddenKeys.has(itemKey(item))
+    );
     const [requestedKeys, setRequestedKeys] = useState<Set<string>>(new Set());
 
     const markRequested = (item: DiscoverItem) => {
@@ -173,6 +207,7 @@ const DiscoverSection = ({ provider, region }: DiscoverSectionProps) => {
                         item={item}
                         requested={requestedKeys.has(itemKey(item))}
                         onRequested={markRequested}
+                        onHide={(hidden) => hideItem(itemKey(hidden))}
                     />
                 ))}
             />
