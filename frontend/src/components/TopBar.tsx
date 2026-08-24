@@ -35,6 +35,7 @@ import {
     Telescope,
     TriangleAlert,
     Tv,
+    Wand2,
     X,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -82,6 +83,7 @@ import { useCurrentUser } from '@pelagica/core';
 import { useAnimeBoxSet } from '@pelagica/core';
 import { useAppleTVBoxSet } from '@pelagica/core';
 import { useDCUniverseBoxSet } from '@pelagica/core';
+import { useHarryPotterBoxSet } from '@pelagica/core';
 import { useHBOMaxBoxSet } from '@pelagica/core';
 import { useMarvelBoxSet } from '@pelagica/core';
 import { useNetflixBoxSet } from '@pelagica/core';
@@ -675,6 +677,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const { data: marvelBoxSetId } = useMarvelBoxSet();
     const { data: animeBoxSetId } = useAnimeBoxSet();
     const { data: dcUniverseBoxSetId } = useDCUniverseBoxSet();
+    const { data: harryPotterBoxSetId } = useHarryPotterBoxSet();
     const { data: appleTVBoxSetId } = useAppleTVBoxSet();
     const { data: hboMaxBoxSetId } = useHBOMaxBoxSet();
     const { data: netflixBoxSetId } = useNetflixBoxSet();
@@ -719,6 +722,7 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const hasMarvelCollection = !!marvelBoxSetId;
     const hasAnimeCollection = !!animeBoxSetId;
     const hasDCUniverseCollection = !!dcUniverseBoxSetId;
+    const hasHarryPotterCollection = !!harryPotterBoxSetId;
     const hasAppleTVCollection = !!appleTVBoxSetId;
     const hasHBOMaxCollection = !!hboMaxBoxSetId;
     const hasNetflixCollection = !!netflixBoxSetId;
@@ -912,6 +916,15 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             </Button>
                         )}
 
+                        {hasHarryPotterCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/harry-potter">
+                                    <Wand2 className="h-4 w-4" />
+                                    {t('harryPotter')}
+                                </Link>
+                            </Button>
+                        )}
+
                         {hasAppleTVCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/apple-tv">
@@ -1028,6 +1041,14 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/dc-universe">
                                     <Star className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasHarryPotterCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/harry-potter">
+                                    <Wand2 className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}

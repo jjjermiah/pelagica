@@ -38,6 +38,7 @@ const LivetvPage = lazy(() => import('./pages/Live/LiveTvPage.tsx'));
 const MarvelPage = lazy(() => import('./pages/Marvel/MarvelPage.tsx'));
 const AnimePage = lazy(() => import('./pages/Anime/AnimePage.tsx'));
 const DCUniversePage = lazy(() => import('./pages/DCUniverse/DCUniversePage.tsx'));
+const HarryPotterPage = lazy(() => import('./pages/HarryPotter/HarryPotterPage.tsx'));
 const AppleTVPage = lazy(() => import('./pages/AppleTV/AppleTVPage.tsx'));
 const HBOMaxPage = lazy(() => import('./pages/HBOMax/HBOMaxPage.tsx'));
 const NetflixPage = lazy(() => import('./pages/Netflix/NetflixPage.tsx'));
@@ -93,6 +94,10 @@ export default function App() {
                                             <Route
                                                 path="/dc-universe"
                                                 element={<DCUniversePage />}
+                                            />
+                                            <Route
+                                                path="/harry-potter"
+                                                element={<HarryPotterPage />}
                                             />
                                             <Route path="/apple-tv" element={<AppleTVPage />} />
                                             <Route path="/hbo-max" element={<HBOMaxPage />} />
