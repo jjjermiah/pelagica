@@ -11,6 +11,7 @@ const AnimePage = () => {
             boxSetId={animeBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
             emptyIcon={<Swords />}
+            defaultTab="shows"
         />
     );
 };

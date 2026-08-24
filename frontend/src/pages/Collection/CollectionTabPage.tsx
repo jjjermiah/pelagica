@@ -54,6 +54,8 @@ export interface CollectionTabPageProps {
     isLoadingBoxSet: boolean;
     /** Icon shown in the empty state when no matching collection exists. */
     emptyIcon: ReactNode;
+    /** Which tab is active on first render. Defaults to 'movies'. */
+    defaultTab?: CollectionTab;
 }
 
 /**
@@ -66,9 +68,10 @@ const CollectionTabPage = ({
     boxSetId,
     isLoadingBoxSet,
     emptyIcon,
+    defaultTab = 'movies',
 }: CollectionTabPageProps) => {
     const { t } = useTranslation(i18nNamespace);
-    const [activeTab, setActiveTab] = useState<CollectionTab>('movies');
+    const [activeTab, setActiveTab] = useState<CollectionTab>(defaultTab);
     const state = useItemsGridState();
 
     const moviesResult = useSectionItems(
@@ -105,16 +108,18 @@ const CollectionTabPage = ({
 
             {!isLoadingBoxSet && boxSetId && (
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <TabsList>
-                        <TabsTrigger value="movies">
-                            <Clapperboard />
-                            {t('movies')}
-                        </TabsTrigger>
-                        <TabsTrigger value="shows">
-                            <Tv />
-                            {t('shows')}
-                        </TabsTrigger>
-                    </TabsList>
+                    <div className="flex justify-center">
+                        <TabsList>
+                            <TabsTrigger value="movies">
+                                <Clapperboard />
+                                {t('movies')}
+                            </TabsTrigger>
+                            <TabsTrigger value="shows">
+                                <Tv />
+                                {t('shows')}
+                            </TabsTrigger>
+                        </TabsList>
+                    </div>
 
                     <TabsContent value="movies">
                         <ItemsGridPage title={t('movies')} state={state} result={moviesResult} />
