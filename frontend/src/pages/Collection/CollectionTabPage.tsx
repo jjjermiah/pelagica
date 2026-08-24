@@ -143,7 +143,11 @@ const CollectionTabPage = ({
             {!isLoadingBoxSet && boxSetId && countsResolved && isStacked && (
                 <div className="flex flex-col gap-10">
                     {showMoviesSection && (
-                        <ItemsGridPage title={t('movies')} state={moviesState} result={moviesResult} />
+                        <ItemsGridPage
+                            title={t('movies')}
+                            state={moviesState}
+                            result={moviesResult}
+                        />
                     )}
                     {showShowsSection && (
                         <ItemsGridPage title={t('shows')} state={showsState} result={showsResult} />
@@ -167,7 +171,11 @@ const CollectionTabPage = ({
                     </div>
 
                     <TabsContent value="movies">
-                        <ItemsGridPage title={t('movies')} state={moviesState} result={moviesResult} />
+                        <ItemsGridPage
+                            title={t('movies')}
+                            state={moviesState}
+                            result={moviesResult}
+                        />
                     </TabsContent>
                     <TabsContent value="shows">
                         <ItemsGridPage title={t('shows')} state={showsState} result={showsResult} />

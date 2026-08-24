@@ -3,8 +3,7 @@ import { usePlanetOfTheApesBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
 const PlanetOfTheApesPage = () => {
-    const { data: planetOfTheApesBoxSetId, isLoading: loadingBoxSet } =
-        usePlanetOfTheApesBoxSet();
+    const { data: planetOfTheApesBoxSetId, isLoading: loadingBoxSet } = usePlanetOfTheApesBoxSet();
 
     return (
         <CollectionTabPage

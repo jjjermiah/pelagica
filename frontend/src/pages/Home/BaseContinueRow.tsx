@@ -9,7 +9,13 @@ import {
 import { buildPlayerUrl } from '@/utils/playerUrl';
 import { Button } from '@/components/ui/button';
 import { Check, Dot, ImageOff, Play } from 'lucide-react';
-import { getUserId, getPrimaryImageUrl, getThumbUrl, getBackdropUrl, useMarkWatched } from '@pelagica/core';
+import {
+    getUserId,
+    getPrimaryImageUrl,
+    getThumbUrl,
+    getBackdropUrl,
+    useMarkWatched,
+} from '@pelagica/core';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import SectionScroller from '@/components/SectionScroller';
