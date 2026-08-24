@@ -1,4 +1,4 @@
-import { Shield } from 'lucide-react';
+import { MarvelLogo } from '@/components/logos/BrandLogos';
 import { useMarvelBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
 
@@ -10,7 +10,7 @@ const MarvelPage = () => {
             i18nNamespace="marvel"
             boxSetId={marvelBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
-            emptyIcon={<Shield />}
+            emptyIcon={<MarvelLogo className="h-6 w-6" />}
         />
     );
 };
