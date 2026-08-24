@@ -108,16 +108,18 @@ const CollectionTabPage = ({
 
             {!isLoadingBoxSet && boxSetId && (
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <TabsList>
-                        <TabsTrigger value="movies">
-                            <Clapperboard />
-                            {t('movies')}
-                        </TabsTrigger>
-                        <TabsTrigger value="shows">
-                            <Tv />
-                            {t('shows')}
-                        </TabsTrigger>
-                    </TabsList>
+                    <div className="flex justify-center">
+                        <TabsList>
+                            <TabsTrigger value="movies">
+                                <Clapperboard />
+                                {t('movies')}
+                            </TabsTrigger>
+                            <TabsTrigger value="shows">
+                                <Tv />
+                                {t('shows')}
+                            </TabsTrigger>
+                        </TabsList>
+                    </div>
 
                     <TabsContent value="movies">
                         <ItemsGridPage title={t('movies')} state={state} result={moviesResult} />
