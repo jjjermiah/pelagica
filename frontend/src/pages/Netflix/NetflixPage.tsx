@@ -11,6 +11,7 @@ const NetflixPage = () => {
             boxSetId={netflixBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
             emptyIcon={<MonitorPlay />}
+            defaultTab="shows"
         />
     );
 };

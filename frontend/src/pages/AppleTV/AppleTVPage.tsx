@@ -11,6 +11,7 @@ const AppleTVPage = () => {
             boxSetId={appleTVBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
             emptyIcon={<Apple />}
+            defaultTab="shows"
         />
     );
 };
