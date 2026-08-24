@@ -72,7 +72,7 @@ const CollectionTabPage = ({
 }: CollectionTabPageProps) => {
     const { t } = useTranslation(i18nNamespace);
     const [activeTab, setActiveTab] = useState<CollectionTab>(defaultTab);
-    const state = useItemsGridState();
+    const state = useItemsGridState({ sortBy: 'CommunityRating', sortOrder: 'Descending' });
 
     const moviesResult = useSectionItems(
         boxSetId && activeTab === 'movies'

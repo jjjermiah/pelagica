@@ -11,6 +11,7 @@ const HBOMaxPage = () => {
             boxSetId={hboMaxBoxSetId}
             isLoadingBoxSet={loadingBoxSet}
             emptyIcon={<Drama />}
+            defaultTab="shows"
         />
     );
 };
