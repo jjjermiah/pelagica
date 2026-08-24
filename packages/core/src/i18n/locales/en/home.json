@@ -27,5 +27,8 @@
     "seerr_popular_movies": "Popular Movies",
     "seerr_popular_series": "Popular Series",
     "error_loading_continue": "Error loading continue items: {{error}}",
-    "continue_item_alt": "Continue Watching item"
+    "continue_item_alt": "Continue Watching item",
+    "mark_watched": "Mark as watched",
+    "mark_watched_success": "Marked as watched",
+    "mark_watched_failed": "Failed to mark as watched"
 }

@@ -32,6 +32,7 @@ export * from './hooks/images/useUploadItemImage';
 export * from './hooks/playState/useItemPlayState';
 export * from './hooks/playState/useMarkItemPlayed';
 export * from './hooks/playState/useMarkItemUnplayed';
+export * from './hooks/playState/useMarkWatched';
 export * from './hooks/playbackPreferences/useUpdateUserConfiguration';
 export * from './hooks/playbackPreferences/useUserConfiguration';
 export * from './hooks/playlist/useAddToPlaylist';
