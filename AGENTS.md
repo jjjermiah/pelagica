@@ -89,6 +89,14 @@ Only three workflows exist in this fork; several upstream-specific ones were int
 - **`docker-release.yml`** — "Build and Publish Multi-Arch Docker Image". Triggers on GitHub Release `published`. Builds `linux/amd64` and `linux/arm64` images via Buildx (matrix job, one runner per platform), pushes digests to **`ghcr.io/jjjermiah/pelagica`** (via `ghcr.io/${{ github.repository }}`, GITHUB_TOKEN auth), tagged `<ref>-<platform>` and `latest-<platform>`; a second `merge` job combines the per-arch digests into multi-arch manifests tagged `<ref>` and `latest` using `docker buildx imagetools create`. This was changed from upstream's Docker Hub target to publish to this fork's own GHCR namespace.
 - **Removed (present upstream, deleted in this fork)**: `desktop-release.yml`, `tizen-release.yml`, `deploy-demo.yml` — these targeted upstream-specific code-signing secrets and demo infrastructure (`demo.pelagica.app`) that this personal fork does not have and does not need.
 
+## Auto-Deploy (Homelab)
+
+The `ghcr.io/jjjermiah/pelagica:latest` image built by `docker-release.yml` auto-deploys
+to the homelab's `pelagica` container via a scoped Watchtower instance (pull-based,
+polls every 5 min, zero inbound exposure) — no self-hosted runner, no webhook listener,
+no SSH-in-from-CI. See [`docs/auto-deploy.md`](docs/auto-deploy.md) for the full design
+rationale, health checks, and rollback steps.
+
 ## Notes
 
 - Frontend package manager is **pnpm** (`pnpm-lock.yaml`, `pnpm-workspace.yaml`) — do not introduce npm/yarn lockfiles.
