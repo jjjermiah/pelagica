@@ -17,6 +17,7 @@ import { Link } from 'react-router';
 import ItemPagination from '@/components/ItemPagination';
 import { getItemUrl } from '@/utils/itemUrl';
 import MusicItemContextMenu from '@/components/MusicItemContextMenu';
+import SeriesResumeSubtitle from '@/components/SeriesResumeSubtitle';
 import {
     Select,
     SelectContent,
@@ -88,6 +89,7 @@ const ItemDisplay = ({ item, aspectClass, overlay, linkUrl }: ItemDisplayProps) 
                         {new Date(item.PremiereDate).getFullYear()}
                     </span>
                 )}
+                {item.Type === 'Series' && <SeriesResumeSubtitle seriesId={item.Id} />}
             </Link>
         </MusicItemContextMenu>
     );
