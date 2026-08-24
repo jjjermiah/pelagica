@@ -1,0 +1,7 @@
+{
+    "title": "DC Universe",
+    "movies": "Movies",
+    "shows": "Shows",
+    "no_collection_title": "No DC Universe collection found",
+    "no_collection_description": "This server doesn't have a collection named \"DC Universe\". Create a BoxSet/Collection named \"DC Universe\" in Jellyfin to populate this page."
+}

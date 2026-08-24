@@ -26,7 +26,9 @@ import {
     Settings2,
     Shield,
     Square,
+    Star,
     Sun,
+    Swords,
     Telescope,
     TriangleAlert,
     Tv,
@@ -74,6 +76,8 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { useCurrentUser } from '@pelagica/core';
+import { useAnimeBoxSet } from '@pelagica/core';
+import { useDCUniverseBoxSet } from '@pelagica/core';
 import { useMarvelBoxSet } from '@pelagica/core';
 import { useUserViews } from '@pelagica/core';
 import { useConfig } from '@pelagica/core';
@@ -663,6 +667,8 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const { config } = useConfig();
     const { data: views } = useUserViews();
     const { data: marvelBoxSetId } = useMarvelBoxSet();
+    const { data: animeBoxSetId } = useAnimeBoxSet();
+    const { data: dcUniverseBoxSetId } = useDCUniverseBoxSet();
     const { theme } = useTheme();
     const effectiveTheme = getEffectiveTheme(theme);
     const [scrolled, setScrolled] = useState(false);
@@ -702,6 +708,8 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const hasMusicLibrary = libraries.some((lib) => lib.CollectionType === 'music');
     const hasLiveTvLibrary = views?.Items?.some((lib) => lib.CollectionType === 'livetv') ?? false;
     const hasMarvelCollection = !!marvelBoxSetId;
+    const hasAnimeCollection = !!animeBoxSetId;
+    const hasDCUniverseCollection = !!dcUniverseBoxSetId;
 
     const validLinks = config?.links?.filter((l) => l.url && l.text) ?? [];
 
@@ -874,6 +882,24 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             </Button>
                         )}
 
+                        {hasAnimeCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/anime">
+                                    <Swords className="h-4 w-4" />
+                                    {t('anime')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasDCUniverseCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/dc-universe">
+                                    <Star className="h-4 w-4" />
+                                    {t('dcUniverse')}
+                                </Link>
+                            </Button>
+                        )}
+
                         <Button asChild variant="ghost" size="sm">
                             <Link to="/search">
                                 <Search className="h-4 w-4" />
@@ -947,6 +973,22 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/marvel">
                                     <Shield className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasAnimeCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/anime">
+                                    <Swords className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasDCUniverseCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/dc-universe">
+                                    <Star className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
