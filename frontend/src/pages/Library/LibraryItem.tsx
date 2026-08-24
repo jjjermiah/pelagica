@@ -9,6 +9,7 @@ import { buildPlayerUrl } from '@/utils/playerUrl';
 import { getItemUrl } from '@/utils/itemUrl';
 import WatchedStateBadge from '@/components/WatchedStateBadge';
 import ItemContextMenu from '@/components/ItemContextMenu';
+import SeriesResumeSubtitle from '@/components/SeriesResumeSubtitle';
 
 // BoxSet child posters are only ever shown in the default 2/3 library grid
 // (Collections view never overrides the poster size), so a fixed size is safe here.
@@ -180,6 +181,7 @@ const LibraryItem = ({
                     {detailLine}
                 </span>
             </div>
+            {item.Type === 'Series' && <SeriesResumeSubtitle seriesId={item.Id} />}
         </Link>
         </ItemContextMenu>
     );
