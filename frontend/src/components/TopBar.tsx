@@ -6,6 +6,7 @@ import {
     MarvelLogo,
     NetflixLogo,
 } from '@/components/logos/BrandLogos';
+import { Banana, Bot, Crown, Ship } from 'lucide-react';
 import { useState, useRef, useEffect, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
@@ -88,7 +89,11 @@ import { useDCUniverseBoxSet } from '@pelagica/core';
 import { useHarryPotterBoxSet } from '@pelagica/core';
 import { useHBOMaxBoxSet } from '@pelagica/core';
 import { useMarvelBoxSet } from '@pelagica/core';
+import { useMiddleEarthBoxSet } from '@pelagica/core';
 import { useNetflixBoxSet } from '@pelagica/core';
+import { usePiratesOfTheCaribbeanBoxSet } from '@pelagica/core';
+import { usePlanetOfTheApesBoxSet } from '@pelagica/core';
+import { useTransformersBoxSet } from '@pelagica/core';
 import { useUserViews } from '@pelagica/core';
 import { useConfig } from '@pelagica/core';
 import { useTheme } from '@/components/theme-provider';
@@ -680,6 +685,10 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const { data: animeBoxSetId } = useAnimeBoxSet();
     const { data: dcUniverseBoxSetId } = useDCUniverseBoxSet();
     const { data: harryPotterBoxSetId } = useHarryPotterBoxSet();
+    const { data: middleEarthBoxSetId } = useMiddleEarthBoxSet();
+    const { data: planetOfTheApesBoxSetId } = usePlanetOfTheApesBoxSet();
+    const { data: transformersBoxSetId } = useTransformersBoxSet();
+    const { data: piratesOfTheCaribbeanBoxSetId } = usePiratesOfTheCaribbeanBoxSet();
     const { data: appleTVBoxSetId } = useAppleTVBoxSet();
     const { data: hboMaxBoxSetId } = useHBOMaxBoxSet();
     const { data: netflixBoxSetId } = useNetflixBoxSet();
@@ -725,6 +734,10 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const hasAnimeCollection = !!animeBoxSetId;
     const hasDCUniverseCollection = !!dcUniverseBoxSetId;
     const hasHarryPotterCollection = !!harryPotterBoxSetId;
+    const hasMiddleEarthCollection = !!middleEarthBoxSetId;
+    const hasPlanetOfTheApesCollection = !!planetOfTheApesBoxSetId;
+    const hasTransformersCollection = !!transformersBoxSetId;
+    const hasPiratesOfTheCaribbeanCollection = !!piratesOfTheCaribbeanBoxSetId;
     const hasAppleTVCollection = !!appleTVBoxSetId;
     const hasHBOMaxCollection = !!hboMaxBoxSetId;
     const hasNetflixCollection = !!netflixBoxSetId;
@@ -927,6 +940,42 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             </Button>
                         )}
 
+                        {hasMiddleEarthCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/middle-earth">
+                                    <Crown className="h-4 w-4" />
+                                    {t('middleEarth')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasPlanetOfTheApesCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/planet-of-the-apes">
+                                    <Banana className="h-4 w-4" />
+                                    {t('planetOfTheApes')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasTransformersCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/transformers">
+                                    <Bot className="h-4 w-4" />
+                                    {t('transformers')}
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasPiratesOfTheCaribbeanCollection && (
+                            <Button asChild variant="ghost" size="sm">
+                                <Link to="/pirates-of-the-caribbean">
+                                    <Ship className="h-4 w-4" />
+                                    {t('piratesOfTheCaribbean')}
+                                </Link>
+                            </Button>
+                        )}
+
                         {hasAppleTVCollection && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link to="/apple-tv">
@@ -1051,6 +1100,38 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
                                 <Link to="/harry-potter">
                                     <HarryPotterLogo className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasMiddleEarthCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/middle-earth">
+                                    <Crown className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasPlanetOfTheApesCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/planet-of-the-apes">
+                                    <Banana className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasTransformersCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/transformers">
+                                    <Bot className="h-4 w-4" />
+                                </Link>
+                            </Button>
+                        )}
+
+                        {hasPiratesOfTheCaribbeanCollection && (
+                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
+                                <Link to="/pirates-of-the-caribbean">
+                                    <Ship className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}

@@ -39,6 +39,12 @@ const MarvelPage = lazy(() => import('./pages/Marvel/MarvelPage.tsx'));
 const AnimePage = lazy(() => import('./pages/Anime/AnimePage.tsx'));
 const DCUniversePage = lazy(() => import('./pages/DCUniverse/DCUniversePage.tsx'));
 const HarryPotterPage = lazy(() => import('./pages/HarryPotter/HarryPotterPage.tsx'));
+const MiddleEarthPage = lazy(() => import('./pages/MiddleEarth/MiddleEarthPage.tsx'));
+const PlanetOfTheApesPage = lazy(() => import('./pages/PlanetOfTheApes/PlanetOfTheApesPage.tsx'));
+const TransformersPage = lazy(() => import('./pages/Transformers/TransformersPage.tsx'));
+const PiratesOfTheCaribbeanPage = lazy(
+    () => import('./pages/PiratesOfTheCaribbean/PiratesOfTheCaribbeanPage.tsx')
+);
 const AppleTVPage = lazy(() => import('./pages/AppleTV/AppleTVPage.tsx'));
 const HBOMaxPage = lazy(() => import('./pages/HBOMax/HBOMaxPage.tsx'));
 const NetflixPage = lazy(() => import('./pages/Netflix/NetflixPage.tsx'));
@@ -98,6 +104,22 @@ export default function App() {
                                             <Route
                                                 path="/harry-potter"
                                                 element={<HarryPotterPage />}
+                                            />
+                                            <Route
+                                                path="/middle-earth"
+                                                element={<MiddleEarthPage />}
+                                            />
+                                            <Route
+                                                path="/planet-of-the-apes"
+                                                element={<PlanetOfTheApesPage />}
+                                            />
+                                            <Route
+                                                path="/transformers"
+                                                element={<TransformersPage />}
+                                            />
+                                            <Route
+                                                path="/pirates-of-the-caribbean"
+                                                element={<PiratesOfTheCaribbeanPage />}
                                             />
                                             <Route path="/apple-tv" element={<AppleTVPage />} />
                                             <Route path="/hbo-max" element={<HBOMaxPage />} />

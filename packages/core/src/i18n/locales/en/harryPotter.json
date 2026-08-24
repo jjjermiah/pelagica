@@ -3,5 +3,5 @@
     "movies": "Movies",
     "shows": "Shows",
     "no_collection_title": "No Harry Potter collection found",
-    "no_collection_description": "This server doesn't have a collection named \"Harry Potter\". Create a BoxSet/Collection named \"Harry Potter\" in Jellyfin to populate this page."
+    "no_collection_description": "This server doesn't have a wizarding-world collection named \"Harry Potter\". Create a BoxSet/Collection named \"Harry Potter\" (containing the Harry Potter & Fantastic Beasts films) in Jellyfin to populate this page."
 }
