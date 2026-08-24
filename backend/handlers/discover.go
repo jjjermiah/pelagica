@@ -40,14 +40,17 @@ type jellyseerrDiscoverMediaInfo struct {
 }
 
 type jellyseerrDiscoverResult struct {
-	ID           int                          `json:"id"`
-	MediaType    string                       `json:"mediaType"`
-	Title        string                       `json:"title"`
-	Name         string                       `json:"name"`
-	ReleaseDate  string                       `json:"releaseDate"`
-	FirstAirDate string                       `json:"firstAirDate"`
-	PosterPath   string                       `json:"posterPath"`
-	MediaInfo    *jellyseerrDiscoverMediaInfo `json:"mediaInfo"`
+	ID           int    `json:"id"`
+	MediaType    string `json:"mediaType"`
+	Title        string `json:"title"`
+	Name         string `json:"name"`
+	ReleaseDate  string `json:"releaseDate"`
+	FirstAirDate string `json:"firstAirDate"`
+	PosterPath   string `json:"posterPath"`
+	// VoteAverage is TMDB's own 0-10 rating, already present on Jellyseerr's
+	// discover-list MovieResult/TvResult items (no extra call needed).
+	VoteAverage float64                      `json:"voteAverage"`
+	MediaInfo   *jellyseerrDiscoverMediaInfo `json:"mediaInfo"`
 }
 
 type jellyseerrDiscoverResponse struct {
@@ -76,6 +79,16 @@ func discoverStatus(mediaInfo *jellyseerrDiscoverMediaInfo) string {
 	default:
 		return "none"
 	}
+}
+
+// discoverTmdbRating converts a Jellyseerr/TMDB voteAverage into an optional
+// pointer, treating 0 (no votes yet) as "unavailable" rather than a real
+// zero rating so the frontend can omit the badge entirely.
+func discoverTmdbRating(voteAverage float64) *float64 {
+	if voteAverage <= 0 {
+		return nil
+	}
+	return &voteAverage
 }
 
 // discoverYear extracts a 4-digit year from a Jellyseerr date string
@@ -124,6 +137,7 @@ func toDiscoverItem(result jellyseerrDiscoverResult, fallbackMediaType string) m
 		Year:       discoverYear(date),
 		PosterPath: posterPath,
 		Status:     discoverStatus(result.MediaInfo),
+		TmdbRating: discoverTmdbRating(result.VoteAverage),
 	}
 }
 

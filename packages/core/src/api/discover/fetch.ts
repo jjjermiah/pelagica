@@ -29,5 +29,9 @@ export async function fetchDiscover(
         throw new Error(`Failed to fetch discover results (${response.status})`);
     }
 
-    return (await response.json()) as DiscoverItem[];
+    const items = (await response.json()) as DiscoverItem[];
+    // The backend omits `tmdbRating` entirely (via `omitempty`) rather than
+    // sending `null` when a title has no votes yet — normalize the missing
+    // key here so the rest of the app can rely on `number | null`.
+    return items.map((item) => ({ ...item, tmdbRating: item.tmdbRating ?? null }));
 }
