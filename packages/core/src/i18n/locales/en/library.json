@@ -13,5 +13,7 @@
     "no_studios_found": "There are no studios in this library.",
     "clear_search": "Clear search",
     "studios_search_placeholder": "Search studios...",
-    "no_libraries_found": "No libraries found."
+    "no_libraries_found": "No libraries found.",
+    "previous_collection_item": "Previous item in collection",
+    "next_collection_item": "Next item in collection"
 }

@@ -1,6 +1,9 @@
 import { AppleTVLogo } from '@/components/logos/BrandLogos';
 import { useAppleTVBoxSet } from '@pelagica/core';
 import CollectionTabPage from '../Collection/CollectionTabPage';
+import DiscoverSection from '@/components/DiscoverSection';
+
+const APPLE_TV_TMDB_PROVIDER_ID = 350;
 
 const AppleTVPage = () => {
     const { data: appleTVBoxSetId, isLoading: loadingBoxSet } = useAppleTVBoxSet();
@@ -12,6 +15,7 @@ const AppleTVPage = () => {
             isLoadingBoxSet={loadingBoxSet}
             emptyIcon={<AppleTVLogo className="h-6 w-6" />}
             defaultTab="shows"
+            belowContent={<DiscoverSection provider={APPLE_TV_TMDB_PROVIDER_ID} region="US" />}
         />
     );
 };

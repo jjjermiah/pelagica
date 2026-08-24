@@ -85,6 +85,9 @@ func main() {
 	api.Get("/seerr/discover/movies", handlers.GetSeerDiscoverMovies)
 	api.Get("/seerr/discover/tv", handlers.GetSeerDiscoverTv)
 
+	api.Get("/discover", handlers.GetDiscover)
+	api.Post("/discover/request", handlers.PostDiscoverRequest)
+
 	slog.Info("Server starting", "port", getPort(), "fiber", fiber.Version)
 	if err := app.Listen(getPort(), fiber.ListenConfig{
 		DisableStartupMessage: true,

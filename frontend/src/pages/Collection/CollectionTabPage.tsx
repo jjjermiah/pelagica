@@ -22,6 +22,13 @@ const GRID_COLS =
 const MOVIE_TYPES: BaseItemKind[] = ['Movie'];
 const SERIES_TYPES: BaseItemKind[] = ['Series'];
 
+/**
+ * Below this item count (for either Movies or Shows), the tabbed UI is
+ * replaced by both sections stacked vertically on one page, since a
+ * near-empty tab is worse UX than a single scroll.
+ */
+const STACK_THRESHOLD = 20;
+
 type CollectionTab = 'movies' | 'shows';
 
 const CollectionTabPageSkeleton = () => (
@@ -56,12 +63,23 @@ export interface CollectionTabPageProps {
     emptyIcon: ReactNode;
     /** Which tab is active on first render. Defaults to 'movies'. */
     defaultTab?: CollectionTab;
+    /**
+     * Optional extra content rendered below the Movies/Shows collection UI,
+     * still inside this page's `<Page>` wrapper (e.g. a DiscoverSection).
+     */
+    belowContent?: ReactNode;
 }
 
 /**
- * Generic Movies/Shows tabbed view for a Jellyfin BoxSet/Collection,
- * resolved by name via `useNamedBoxSet` (see callers). Shows a skeleton
- * while the BoxSet is being resolved, and an empty state if none is found.
+ * Generic Movies/Shows view for a Jellyfin BoxSet/Collection, resolved by
+ * name via `useNamedBoxSet` (see callers). Shows a skeleton while the
+ * BoxSet is being resolved, and an empty state if none is found.
+ *
+ * Once resolved, both the Movies and Shows counts are fetched. If either
+ * count is below `STACK_THRESHOLD`, both sections render stacked
+ * vertically on one page (skipping any section with zero items) instead
+ * of forcing the user to click between two near-empty tabs. Otherwise the
+ * existing tabbed UI is used.
  */
 const CollectionTabPage = ({
     i18nNamespace,
@@ -69,27 +87,41 @@ const CollectionTabPage = ({
     isLoadingBoxSet,
     emptyIcon,
     defaultTab = 'movies',
+    belowContent,
 }: CollectionTabPageProps) => {
     const { t } = useTranslation(i18nNamespace);
     const [activeTab, setActiveTab] = useState<CollectionTab>(defaultTab);
-    const state = useItemsGridState({ sortBy: 'CommunityRating', sortOrder: 'Descending' });
 
+    // Independent pagination/sort state per section. Both tabbed and
+    // stacked layouts use these directly, so paging one section (in
+    // stacked mode, where both render simultaneously) never affects the
+    // other.
+    const moviesState = useItemsGridState({ sortBy: 'CommunityRating', sortOrder: 'Descending' });
+    const showsState = useItemsGridState({ sortBy: 'CommunityRating', sortOrder: 'Descending' });
+
+    // Both sections are always fetched (not gated by `activeTab`) so the
+    // stacked-vs-tabbed decision can be made as soon as boxSetId resolves.
     const moviesResult = useSectionItems(
-        boxSetId && activeTab === 'movies'
-            ? { libraryId: boxSetId, types: MOVIE_TYPES }
-            : undefined,
-        state.params
+        boxSetId ? { libraryId: boxSetId, types: MOVIE_TYPES } : undefined,
+        moviesState.params
     );
     const showsResult = useSectionItems(
-        boxSetId && activeTab === 'shows'
-            ? { libraryId: boxSetId, types: SERIES_TYPES }
-            : undefined,
-        state.params
+        boxSetId ? { libraryId: boxSetId, types: SERIES_TYPES } : undefined,
+        showsState.params
     );
+
+    const countsResolved = !moviesResult.isLoading && !showsResult.isLoading;
+    const moviesCount = moviesResult.data?.totalCount ?? 0;
+    const showsCount = showsResult.data?.totalCount ?? 0;
+    const isStacked = moviesCount < STACK_THRESHOLD || showsCount < STACK_THRESHOLD;
+
+    // Still show a section if it errored, even when its (fallback) count
+    // is 0, so the error message in ItemsGridPage isn't silently hidden.
+    const showMoviesSection = !!moviesResult.error || moviesCount > 0;
+    const showShowsSection = !!showsResult.error || showsCount > 0;
 
     const handleTabChange = (value: string) => {
         setActiveTab(value === 'shows' ? 'shows' : 'movies');
-        state.setPage(0);
     };
 
     return (
@@ -106,7 +138,20 @@ const CollectionTabPage = ({
                 </Empty>
             )}
 
-            {!isLoadingBoxSet && boxSetId && (
+            {!isLoadingBoxSet && boxSetId && !countsResolved && <CollectionTabPageSkeleton />}
+
+            {!isLoadingBoxSet && boxSetId && countsResolved && isStacked && (
+                <div className="flex flex-col gap-10">
+                    {showMoviesSection && (
+                        <ItemsGridPage title={t('movies')} state={moviesState} result={moviesResult} />
+                    )}
+                    {showShowsSection && (
+                        <ItemsGridPage title={t('shows')} state={showsState} result={showsResult} />
+                    )}
+                </div>
+            )}
+
+            {!isLoadingBoxSet && boxSetId && countsResolved && !isStacked && (
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
                     <div className="flex justify-center">
                         <TabsList>
@@ -122,13 +167,15 @@ const CollectionTabPage = ({
                     </div>
 
                     <TabsContent value="movies">
-                        <ItemsGridPage title={t('movies')} state={state} result={moviesResult} />
+                        <ItemsGridPage title={t('movies')} state={moviesState} result={moviesResult} />
                     </TabsContent>
                     <TabsContent value="shows">
-                        <ItemsGridPage title={t('shows')} state={state} result={showsResult} />
+                        <ItemsGridPage title={t('shows')} state={showsState} result={showsResult} />
                     </TabsContent>
                 </Tabs>
             )}
+
+            {belowContent}
         </Page>
     );
 };
