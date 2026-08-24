@@ -7,5 +7,7 @@
     "discover_request": "Request",
     "discover_requesting": "Requesting...",
     "discover_request_failed": "Failed to submit request",
-    "discover_rating_tmdb": "TMDB rating: {{rating}}"
+    "discover_rating_tmdb": "TMDB rating: {{rating}}",
+    "discover_hide": "Not interested",
+    "discover_hidden": "Won't recommend this again"
 }
