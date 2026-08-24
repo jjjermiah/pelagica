@@ -20,7 +20,8 @@ export function getTitleLineText(
             return item.SeriesName || item.Name || t('no_title');
         default: // 'ItemTitleWithEpisodeInfo'
             if (item.SeriesId && item.ParentIndexNumber && item.IndexNumber) {
-                return `S${item.ParentIndexNumber}:E${item.IndexNumber} - ${itemNameWithFallback}`;
+                const seriesPrefix = item.SeriesName ? `${item.SeriesName} · ` : '';
+                return `${seriesPrefix}S${item.ParentIndexNumber}:E${item.IndexNumber} - ${item.Name || t('no_title')}`;
             } else {
                 return itemNameWithFallback;
             }
