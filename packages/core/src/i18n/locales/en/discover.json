@@ -1,0 +1,10 @@
+{
+    "discover_heading": "Discover",
+    "discover_trending_movies": "Trending Movies",
+    "discover_trending_shows": "Trending Shows",
+    "discover_in_library": "In Library",
+    "discover_requested": "Requested",
+    "discover_request": "Request",
+    "discover_requesting": "Requesting...",
+    "discover_request_failed": "Failed to submit request"
+}
