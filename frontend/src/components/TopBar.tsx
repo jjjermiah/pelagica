@@ -1,12 +1,3 @@
-import {
-    AppleTVLogo,
-    DCLogo,
-    HBOMaxLogo,
-    HarryPotterLogo,
-    MarvelLogo,
-    NetflixLogo,
-} from '@/components/logos/BrandLogos';
-import { Banana, Bot, Crown, Ship } from 'lucide-react';
 import { useState, useRef, useEffect, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
@@ -19,6 +10,7 @@ import {
     Copy,
     DotIcon,
     ExternalLink,
+    Film,
     Fingerprint,
     Globe,
     House,
@@ -29,13 +21,11 @@ import {
     LogOut,
     Minus,
     Moon,
-    Music,
     Search,
     Settings,
     Settings2,
     Square,
     Sun,
-    Swords,
     Telescope,
     TriangleAlert,
     Tv,
@@ -83,17 +73,6 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { useCurrentUser } from '@pelagica/core';
-import { useAnimeBoxSet } from '@pelagica/core';
-import { useAppleTVBoxSet } from '@pelagica/core';
-import { useDCUniverseBoxSet } from '@pelagica/core';
-import { useHarryPotterBoxSet } from '@pelagica/core';
-import { useHBOMaxBoxSet } from '@pelagica/core';
-import { useMarvelBoxSet } from '@pelagica/core';
-import { useMiddleEarthBoxSet } from '@pelagica/core';
-import { useNetflixBoxSet } from '@pelagica/core';
-import { usePiratesOfTheCaribbeanBoxSet } from '@pelagica/core';
-import { usePlanetOfTheApesBoxSet } from '@pelagica/core';
-import { useTransformersBoxSet } from '@pelagica/core';
 import { useUserViews } from '@pelagica/core';
 import { useConfig } from '@pelagica/core';
 import { useTheme } from '@/components/theme-provider';
@@ -681,17 +660,6 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
     const { t } = useTranslation('sidebar');
     const { config } = useConfig();
     const { data: views } = useUserViews();
-    const { data: marvelBoxSetId } = useMarvelBoxSet();
-    const { data: animeBoxSetId } = useAnimeBoxSet();
-    const { data: dcUniverseBoxSetId } = useDCUniverseBoxSet();
-    const { data: harryPotterBoxSetId } = useHarryPotterBoxSet();
-    const { data: middleEarthBoxSetId } = useMiddleEarthBoxSet();
-    const { data: planetOfTheApesBoxSetId } = usePlanetOfTheApesBoxSet();
-    const { data: transformersBoxSetId } = useTransformersBoxSet();
-    const { data: piratesOfTheCaribbeanBoxSetId } = usePiratesOfTheCaribbeanBoxSet();
-    const { data: appleTVBoxSetId } = useAppleTVBoxSet();
-    const { data: hboMaxBoxSetId } = useHBOMaxBoxSet();
-    const { data: netflixBoxSetId } = useNetflixBoxSet();
     const { theme } = useTheme();
     const effectiveTheme = getEffectiveTheme(theme);
     const [scrolled, setScrolled] = useState(false);
@@ -728,19 +696,9 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
             SUPPORTED_LIBRARY_COLLECTION_TYPES.includes(lib.CollectionType!)
         ) ?? [];
 
-    const hasMusicLibrary = libraries.some((lib) => lib.CollectionType === 'music');
-    const hasLiveTvLibrary = views?.Items?.some((lib) => lib.CollectionType === 'livetv') ?? false;
-    const hasMarvelCollection = !!marvelBoxSetId;
-    const hasAnimeCollection = !!animeBoxSetId;
-    const hasDCUniverseCollection = !!dcUniverseBoxSetId;
-    const hasHarryPotterCollection = !!harryPotterBoxSetId;
-    const hasMiddleEarthCollection = !!middleEarthBoxSetId;
-    const hasPlanetOfTheApesCollection = !!planetOfTheApesBoxSetId;
-    const hasTransformersCollection = !!transformersBoxSetId;
-    const hasPiratesOfTheCaribbeanCollection = !!piratesOfTheCaribbeanBoxSetId;
-    const hasAppleTVCollection = !!appleTVBoxSetId;
-    const hasHBOMaxCollection = !!hboMaxBoxSetId;
-    const hasNetflixCollection = !!netflixBoxSetId;
+    const moviesLibrary = libraries.find((lib) => lib.CollectionType === 'movies');
+    const showsLibrary = libraries.find((lib) => lib.CollectionType === 'tvshows');
+    const collectionsLibrary = libraries.find((lib) => lib.CollectionType === 'boxsets');
 
     const validLinks = config?.links?.filter((l) => l.url && l.text) ?? [];
 
@@ -875,130 +833,33 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                         <Button asChild variant="ghost" size="sm">
                             <Link to="/">
                                 <House className="h-4 w-4" />
-                                {t('home')}
+                                {t('all')}
                             </Link>
                         </Button>
 
-                        <Button asChild variant="ghost" size="sm">
-                            <Link to="/library">
-                                <Library className="h-4 w-4" />
-                                {t('library')}
-                            </Link>
-                        </Button>
-
-                        {hasMusicLibrary && (
+                        {moviesLibrary && (
                             <Button asChild variant="ghost" size="sm">
-                                <Link to="/music">
-                                    <Music className="h-4 w-4" />
-                                    {t('music')}
+                                <Link to={`/library?library=${moviesLibrary.Id}`}>
+                                    <Film className="h-4 w-4" />
+                                    {t('movies')}
                                 </Link>
                             </Button>
                         )}
 
-                        {hasLiveTvLibrary && (
+                        {showsLibrary && (
                             <Button asChild variant="ghost" size="sm">
-                                <Link to="/live">
+                                <Link to={`/library?library=${showsLibrary.Id}`}>
                                     <Tv className="h-4 w-4" />
-                                    {t('live')}
+                                    {t('shows')}
                                 </Link>
                             </Button>
                         )}
 
-                        {hasMarvelCollection && (
+                        {collectionsLibrary && (
                             <Button asChild variant="ghost" size="sm">
-                                <Link to="/marvel">
-                                    <MarvelLogo className="h-4 w-4" />
-                                    {t('marvel')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasAnimeCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/anime">
-                                    <Swords className="h-4 w-4" />
-                                    {t('anime')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasDCUniverseCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/dc-universe">
-                                    <DCLogo className="h-4 w-4" />
-                                    {t('dcUniverse')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasHarryPotterCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/harry-potter">
-                                    <HarryPotterLogo className="h-4 w-4" />
-                                    {t('harryPotter')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasMiddleEarthCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/middle-earth">
-                                    <Crown className="h-4 w-4" />
-                                    {t('middleEarth')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasPlanetOfTheApesCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/planet-of-the-apes">
-                                    <Banana className="h-4 w-4" />
-                                    {t('planetOfTheApes')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasTransformersCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/transformers">
-                                    <Bot className="h-4 w-4" />
-                                    {t('transformers')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasPiratesOfTheCaribbeanCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/pirates-of-the-caribbean">
-                                    <Ship className="h-4 w-4" />
-                                    {t('piratesOfTheCaribbean')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasAppleTVCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/apple-tv">
-                                    <AppleTVLogo className="h-4 w-4" />
-                                    {t('appleTV')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasHBOMaxCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/hbo-max">
-                                    <HBOMaxLogo className="h-4 w-4" />
-                                    {t('hboMax')}
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasNetflixCollection && (
-                            <Button asChild variant="ghost" size="sm">
-                                <Link to="/netflix">
-                                    <NetflixLogo className="h-4 w-4" />
-                                    {t('netflix')}
+                                <Link to={`/library?library=${collectionsLibrary.Id}`}>
+                                    <Library className="h-4 w-4" />
+                                    {t('collections')}
                                 </Link>
                             </Button>
                         )}
@@ -1050,112 +911,26 @@ const TopBar = ({ overlay = false }: { overlay?: boolean }) => {
                             </Link>
                         </Button>
 
-                        <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                            <Link to="/library">
-                                <Library className="h-4 w-4" />
-                            </Link>
-                        </Button>
-
-                        {hasMusicLibrary && (
+                        {moviesLibrary && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/music">
-                                    <Music className="h-4 w-4" />
+                                <Link to={`/library?library=${moviesLibrary.Id}`}>
+                                    <Film className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
 
-                        {hasLiveTvLibrary && (
+                        {showsLibrary && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/live">
+                                <Link to={`/library?library=${showsLibrary.Id}`}>
                                     <Tv className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}
 
-                        {hasMarvelCollection && (
+                        {collectionsLibrary && (
                             <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/marvel">
-                                    <MarvelLogo className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasAnimeCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/anime">
-                                    <Swords className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasDCUniverseCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/dc-universe">
-                                    <DCLogo className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasHarryPotterCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/harry-potter">
-                                    <HarryPotterLogo className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasMiddleEarthCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/middle-earth">
-                                    <Crown className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasPlanetOfTheApesCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/planet-of-the-apes">
-                                    <Banana className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasTransformersCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/transformers">
-                                    <Bot className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasPiratesOfTheCaribbeanCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/pirates-of-the-caribbean">
-                                    <Ship className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasAppleTVCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/apple-tv">
-                                    <AppleTVLogo className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasHBOMaxCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/hbo-max">
-                                    <HBOMaxLogo className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-
-                        {hasNetflixCollection && (
-                            <Button asChild variant="ghost" size="icon" className="h-8 w-8">
-                                <Link to="/netflix">
-                                    <NetflixLogo className="h-4 w-4" />
+                                <Link to={`/library?library=${collectionsLibrary.Id}`}>
+                                    <Library className="h-4 w-4" />
                                 </Link>
                             </Button>
                         )}

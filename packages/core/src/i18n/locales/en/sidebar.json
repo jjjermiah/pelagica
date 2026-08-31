@@ -1,6 +1,10 @@
 {
     "navigation": "Navigation",
     "home": "Home",
+    "all": "All",
+    "movies": "Movies",
+    "shows": "Shows",
+    "collections": "Collections",
     "library": "Library",
     "music": "Music",
     "live": "Live",
